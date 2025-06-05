@@ -16,6 +16,7 @@ public class InterfazBuscaMinas {
         JFrame buscaMinas = new JFrame("Busca Minas");
         buscaMinas.setSize(new Dimension(500, 400));
         buscaMinas.setResizable(false);
+        buscaMinas.setLocationRelativeTo(null);
         buscaMinas.setVisible(true);
     }
 }
