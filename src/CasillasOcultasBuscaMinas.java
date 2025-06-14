@@ -1,35 +1,28 @@
 public class CasillasOcultasBuscaMinas {
 
-    private int numCasillas = 10;
-    private int[][] casillasOcultas = new int[numCasillas][numCasillas];
+    private static final int NUM_CASILLAS = 10;// Cantidad de casillas ocultas del busa minas
+    private int[][] casillasOcultas = new int[NUM_CASILLAS][NUM_CASILLAS]; // Matriz con la cantidad de casillas ocultas
 
+    /**
+     * Método que devuelve la matriz con las casillas ocultas
+     *
+     * @return Devuelve la matriz con las casillas ocultas
+     */
+    public int[][] getCasillasOcultas() {
+        return casillasOcultas;
+    }
 
     /**
      * Método que crear las casillas reales que están debajo de los botones
      */
-    private void crearCasillasReales() {
-
-        // Llamamos al método que pone todas las casillas a cero
-        casillasIniciales();
+    public void crearCasillasReales() {
 
         // LLamamos al método que añade las bombas a las casillas
         anyadirBombas();
 
         // Añadimos los números que indican las bombas cercanas
-        casillasIniciales();
+        anyadirNumeros();
 
-    }
-
-    /**
-     * Método que pone a cero todas las casillas ocultas
-     */
-    private void casillasIniciales() {
-        // Iteramos sobre la matriz y vamos poniendo cada posición a cero
-        for (int i = 0; i < casillasOcultas.length; i++) {
-            for (int j = 0; j < numCasillas; j++) {
-                casillasOcultas[i][j] = 0;
-            }
-        }
     }
 
     /**
@@ -40,14 +33,13 @@ public class CasillasOcultasBuscaMinas {
         int bombas = 0, bombasMaximas, posicionAleatoriaFila, posicionAleatoriaColumna;
 
         // Calculamos el número de bombas máximas en función de la cantidad de casillas
-        bombasMaximas = ((numCasillas * numCasillas) * 15) / 100;
+        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 15) / 100;
 
         // Situamos bombas en posiciones aleatorias de la matriz
         while (bombas < bombasMaximas) {
-
             // Creamos números random para indicar las posiciones en las que se situaran las bombas
-            posicionAleatoriaFila = (int) (Math.random() * (numCasillas));
-            posicionAleatoriaColumna = (int) (Math.random() * (numCasillas));
+            posicionAleatoriaFila = (int) (Math.random() * (NUM_CASILLAS));
+            posicionAleatoriaColumna = (int) (Math.random() * (NUM_CASILLAS));
 
             // Solo ponemos la bomba en caso de que no exista ya una en esa posición
             if (casillasOcultas[posicionAleatoriaFila][posicionAleatoriaColumna] != 9) {
@@ -62,9 +54,11 @@ public class CasillasOcultasBuscaMinas {
      */
     private void anyadirNumeros() {
 
-        // Iteramos sobre la matriz y vamos poniendo cada posición a cero
+        // Iteramos sobre la matriz
         for (int i = 0; i < casillasOcultas.length; i++) {
-            for (int j = 0; j < numCasillas; j++) {
+            for (int j = 0; j < NUM_CASILLAS; j++) {
+
+                // En caso de que la posición actual no sea una bomba
                 if (casillasOcultas[i][j] != 9) {
                     casillasOcultas[i][j] = sumarNumeros(i, j);
                 }
@@ -80,6 +74,7 @@ public class CasillasOcultasBuscaMinas {
      * @return Devuelve la cantidad de bombas alrededor de la posición actual
      */
     private int sumarNumeros(int fila, int columna) {
+
         // Variables para guardar lsa posiciones alrededor de la posción acutal y la cantidad de bombas en una posición
         int nuevaFila, nuevaColumna, bombasAlrededor = 0;
 
@@ -97,18 +92,15 @@ public class CasillasOcultasBuscaMinas {
             nuevaColumna = columna + dir[1];
 
             // En caso de que la posición no supere los límites
-            if (nuevaFila >= 0 && nuevaFila < numCasillas && nuevaColumna >= 0 && nuevaColumna < numCasillas) {
+            if (nuevaFila >= 0 && nuevaFila < NUM_CASILLAS && nuevaColumna >= 0 && nuevaColumna < NUM_CASILLAS) {
 
                 // Y de que la casilla actual sea una bomba
                 if (casillasOcultas[nuevaFila][nuevaColumna] == 9) {
                     // Sumamos una en caso de que existan bombas en cualquier posición circundante a la actual
                     bombasAlrededor++;
                 }
-
             }
-
         }
         return bombasAlrededor;
-
     }
 }

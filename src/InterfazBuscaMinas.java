@@ -3,16 +3,35 @@ import java.awt.*;
 
 public class InterfazBuscaMinas {
 
-    private int numCasillas = 10;
+    private static final int NUM_CASILLAS = 10; // Número de casillas del busca minas;
     private JFrame buscaMinas; // Ventana del busca minas
-    private JButton[][] botones = new JButton[numCasillas][numCasillas];
-    private JPanel gridBotones;
+    private JButton[][] botones = new JButton[NUM_CASILLAS][NUM_CASILLAS];// Matriz de botones del busca minas
+    private JPanel gridBotones; // Panel principal del busca minas
 
     /**
      * Constructor que inizializa el busca minas
      */
     public InterfazBuscaMinas() {
         inizializar();
+    }
+
+
+    /**
+     * Método que devuelve el valor del grid de botones
+     *
+     * @return Devuelve el grid de botones
+     */
+    public JPanel getGridBotones() {
+        return gridBotones;
+    }
+
+    /**
+     * Método que devuelve la matriz de botones
+     *
+     * @return Devuelve la matriz de botones
+     */
+    public JButton[][] getBotones() {
+        return botones;
     }
 
     /**
@@ -46,9 +65,9 @@ public class InterfazBuscaMinas {
      * Método que crea el panel con los botones del buscaminas
      */
     private void panelBotones() {
-        gridBotones = new JPanel(new GridLayout(numCasillas, numCasillas));
+        gridBotones = new JPanel(new GridLayout(NUM_CASILLAS, NUM_CASILLAS));
         for (int i = 0; i < botones.length; i++) {
-            for (int j = 0; j < numCasillas; j++) {
+            for (int j = 0; j < NUM_CASILLAS; j++) {
                 botones[i][j] = new JButton();
                 gridBotones.add(botones[i][j]);
 
