@@ -1,6 +1,6 @@
 public class CasillasOcultasBuscaMinas {
 
-    private static final int NUM_CASILLAS = 10;// Cantidad de casillas ocultas del busa minas
+    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas();// Cantidad de casillas ocultas del busa minas
     private int[][] casillasOcultas = new int[NUM_CASILLAS][NUM_CASILLAS]; // Matriz con la cantidad de casillas ocultas
 
     /**

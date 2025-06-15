@@ -3,9 +3,10 @@ import java.awt.*;
 
 public class InterfazBuscaMinas {
 
-    private static final int NUM_CASILLAS = 10; // Número de casillas del busca minas;
+    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del busca minas;
     private JFrame buscaMinas; // Ventana del busca minas
     private JButton[][] botones = new JButton[NUM_CASILLAS][NUM_CASILLAS];// Matriz de botones del busca minas
+    private static FuncionesBotonesBuscaMinas gestor = new FuncionesBotonesBuscaMinas();
     private JPanel gridBotones; // Panel principal del busca minas
 
     /**
@@ -57,6 +58,7 @@ public class InterfazBuscaMinas {
     private void crearVentanaBuscaMinas() {
         buscaMinas = new JFrame("Busca Minas");
         buscaMinas.setSize(new Dimension(600, 600));
+        buscaMinas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         buscaMinas.setResizable(false);
         buscaMinas.setLocationRelativeTo(null);
     }
@@ -68,7 +70,11 @@ public class InterfazBuscaMinas {
         gridBotones = new JPanel(new GridLayout(NUM_CASILLAS, NUM_CASILLAS));
         for (int i = 0; i < botones.length; i++) {
             for (int j = 0; j < NUM_CASILLAS; j++) {
+                final int fila = i;
+                final int columna = j;
                 botones[i][j] = new JButton();
+                botones[i][j].addActionListener(e -> gestor.funcionSegundaPulsacion(gridBotones, buscaMinas, fila, columna));
+                botones[i][j].addActionListener(e -> gestor.funcionPrimeraPulsacion());
                 gridBotones.add(botones[i][j]);
 
             }

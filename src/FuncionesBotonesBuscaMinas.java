@@ -1,13 +1,11 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FuncionesBotonesBuscaMinas {
 
-    private static final int NUM_CASILLAS = 10; // Número de casillas del busca minas
-    private static CasillasOcultasBuscaMinas casillasOcultasGestor = new CasillasOcultasBuscaMinas(); // Gestor con los métodos de creación de las casillas ocultas
-    private static int[][] casillasOcultas = casillasOcultasGestor.getCasillasOcultas();// Casillas ocultas del busca minas
+    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del busca minas
+    private static int[][] casillasOcultas;// Casillas ocultas del busca minas
     private static boolean primeraPulsacion = true; // Variable que indica si es la primera vez que se pulsa un botón en la partida
 
     /**
@@ -17,8 +15,14 @@ public class FuncionesBotonesBuscaMinas {
 
         // En caso de que sea la primera pulsación
         if (primeraPulsacion) {
+            // Creamos una nueva instancia de casillas oculta
+            CasillasOcultasBuscaMinas casillasOcultasGestor = new CasillasOcultasBuscaMinas(); // Gestor con los métodos de creación de las casillas ocultas
+
             // Creamos las casillas ocultas
             casillasOcultasGestor.crearCasillasReales();
+
+            // Creamos las casillas ocultas y las guardamos
+            casillasOcultas = casillasOcultasGestor.getCasillasOcultas();
 
             // Indicamos que ya hemos pulsado una vez
             primeraPulsacion = !primeraPulsacion;
@@ -33,13 +37,19 @@ public class FuncionesBotonesBuscaMinas {
         // Actualizamos la posición en función de lo que se encuentre en la casilla oculta
         actualizarPosicion(fila, columna, gridBotones);
 
-        // En caso de que la posción sea una bomba
-        if (casillasOcultas[fila][columna] == 9) {
-            // Ejectuamos el método de la bomba
-            funcionBomba(buscaMinas, gridBotones);
+        switch (casillasOcultas[fila][columna]) {
+            // En caso de que la posción sea una bomba
+            case 9:
+                // Ejectuamos el método de la bomba
+                funcionBomba(buscaMinas, gridBotones);
+                break;
+            // En caso de que la posción sea un cero
+            case 0:
+                break;
 
-        } else if (casillasOcultas[fila][columna] == 0) {
-
+            // En el resto de casos
+            default:
+                break;
         }
     }
 
@@ -51,11 +61,8 @@ public class FuncionesBotonesBuscaMinas {
         // LLamamos al método que revela todas las bombas existentes
         revelarBombas(gridBotones);
 
-        // Congelamos la pantalla para que el usuario no pueda realizar ninguna acción
-        congelarPantalla(buscaMinas);
-
-        // Esperamos 2 segundos (1000 ms) y luego ejecutamps el código
-        Timer timer = new Timer(2000, new ActionListener() {
+        // Esperamos 1 segundo (1000 ms) y luego ejecutamos el código
+        Timer timer = new Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -64,9 +71,9 @@ public class FuncionesBotonesBuscaMinas {
 
                 // En caso de que si reinicie
                 if (respuesta == JOptionPane.YES_OPTION) {
-
                     // Cerramos la ventana actual
                     buscaMinas.dispose();
+                    primeraPulsacion = !primeraPulsacion;
                     // Abrimos una nueva instancia del buscaminas
                     new InterfazBuscaMinas();
                 } else {
@@ -101,19 +108,6 @@ public class FuncionesBotonesBuscaMinas {
     }
 
     /**
-     * Método que congela todos los componenetes en pantalla
-     *
-     * @param buscaMinas Ventana del busca minas
-     */
-    private static void congelarPantalla(JFrame buscaMinas) {
-        // Recorremos todos los componenetes del busca mias
-        for (Component c : buscaMinas.getContentPane().getComponents()) {
-            // Desactivamos todos los componentes
-            c.setEnabled(false);
-        }
-    }
-
-    /**
      * Método que actualiza la posicion actual de la interfaz
      *
      * @param nuevaPosicion Componente que va a sustituir a la vieja posción
@@ -126,16 +120,19 @@ public class FuncionesBotonesBuscaMinas {
         int indice = fila * NUM_CASILLAS + (columna);
 
         // Sacamos el texto de la nueva posición
-        JLabel nuevaPosicion = new JLabel(String.valueOf(casillasOcultas[fila][columna]));
+        JLabel nuevaPosicion = new JLabel(String.valueOf(casillasOcultas[fila][columna]), SwingConstants.CENTER);
 
-        // En caso de que sea una bomba
-        if (casillasOcultas[fila][columna] == 9) {
-            // Cambiamos la posción por un icono
-            nuevaPosicion.setText("💣");
-
-        } else if (casillasOcultas[fila][columna] == 0) {
-            // En caso se ser un cero dejamos la posición vacia
-            nuevaPosicion.setText("");
+        switch (casillasOcultas[fila][columna]) {
+            case 9:
+                // Cambiamos la posción por un icono
+                nuevaPosicion.setText("💣");
+                break;
+            case 0:
+                // En caso se ser un cero dejamos la posición vacia
+                nuevaPosicion.setText("");
+                break;
+            default:
+                break;
         }
 
         // Quitamos la posición actual
