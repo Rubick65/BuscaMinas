@@ -1,6 +1,8 @@
+package FuncionesBuscaMinas;
+
 public class NumeroCasillasBuscaMinas {
     // Atributo que indica la cantidad de casillas por fila y columna del busca minas
-    private static int numCasillas = 9;
+    private static int numCasillas = 10;
 
     /**
      * Contructor que da valor inicial a la cantidad de casillas

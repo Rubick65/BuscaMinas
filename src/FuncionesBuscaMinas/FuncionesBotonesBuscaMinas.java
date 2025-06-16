@@ -1,6 +1,10 @@
+package FuncionesBuscaMinas;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import InterfacesBuscaMinas.InterfazBuscaMinas;
+
 
 public class FuncionesBotonesBuscaMinas {
 

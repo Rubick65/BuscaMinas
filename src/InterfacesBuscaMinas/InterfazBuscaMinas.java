@@ -1,3 +1,8 @@
+package InterfacesBuscaMinas;
+
+import FuncionesBuscaMinas.FuncionesBotonesBuscaMinas;
+import FuncionesBuscaMinas.NumeroCasillasBuscaMinas;
+
 import javax.swing.*;
 import java.awt.*;
 

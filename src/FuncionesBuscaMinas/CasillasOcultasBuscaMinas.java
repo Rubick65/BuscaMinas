@@ -1,3 +1,5 @@
+package FuncionesBuscaMinas;
+
 public class CasillasOcultasBuscaMinas {
 
     private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas();// Cantidad de casillas ocultas del busa minas
