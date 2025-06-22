@@ -4,6 +4,16 @@ public class CasillasOcultasBuscaMinas {
 
     private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas();// Cantidad de casillas ocultas del busa minas
     private int[][] casillasOcultas = new int[NUM_CASILLAS][NUM_CASILLAS]; // Matriz con la cantidad de casillas ocultas
+    private int bombas;
+
+    /**
+     * Método que devuelve la cantidad de bombas de en la partida
+     *
+     * @return Cantidad de bombas
+     */
+    public int getBombas() {
+        return bombas;
+    }
 
     /**
      * Método que devuelve la matriz con las casillas ocultas
@@ -32,11 +42,12 @@ public class CasillasOcultasBuscaMinas {
      */
     private void anyadirBombas() {
 
-        int bombas = 0, bombasMaximas, posicionAleatoriaFila, posicionAleatoriaColumna;
+        int bombasMaximas, posicionAleatoriaFila, posicionAleatoriaColumna;
 
         // Calculamos el número de bombas máximas en función de la cantidad de casillas
-        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 15) / 100;
+        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 20) / 100;
 
+        bombas = 0;
         // Situamos bombas en posiciones aleatorias de la matriz
         while (bombas < bombasMaximas) {
             // Creamos números random para indicar las posiciones en las que se situaran las bombas

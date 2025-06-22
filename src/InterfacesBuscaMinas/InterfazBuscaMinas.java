@@ -78,8 +78,12 @@ public class InterfazBuscaMinas {
                 final int fila = i;
                 final int columna = j;
                 botones[i][j] = new JButton();
+
                 botones[i][j].addActionListener(e -> gestor.funcionSegundaPulsacion(gridBotones, buscaMinas, fila, columna));
+                gestor.funcionBotonesClickDerecho(buscaMinas, botones[i][j], fila, columna);
                 botones[i][j].addActionListener(e -> gestor.funcionPrimeraPulsacion());
+
+
                 gridBotones.add(botones[i][j]);
 
             }
