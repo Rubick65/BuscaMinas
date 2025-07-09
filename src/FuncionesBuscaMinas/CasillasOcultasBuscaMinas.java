@@ -27,13 +27,17 @@ public class CasillasOcultasBuscaMinas {
     /**
      * Método que crear las casillas reales que están debajo de los botones
      */
-    public void crearCasillasReales() {
+    public void crearCasillasReales(int fila, int columna) {
 
         // LLamamos al método que añade las bombas a las casillas
         anyadirBombas();
 
+        // Hacemos que la primera posición siempre sea cero
+        casillasOcultas[fila][columna] = 0;
+
         // Añadimos los números que indican las bombas cercanas
         anyadirNumeros();
+
 
     }
 
@@ -45,7 +49,7 @@ public class CasillasOcultasBuscaMinas {
         int bombasMaximas, posicionAleatoriaFila, posicionAleatoriaColumna;
 
         // Calculamos el número de bombas máximas en función de la cantidad de casillas
-        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 20) / 100;
+        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 15) / 100;
 
         bombas = 0;
         // Situamos bombas en posiciones aleatorias de la matriz

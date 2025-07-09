@@ -12,18 +12,19 @@ import InterfacesBuscaMinas.InterfazBuscaMinas;
  * Clase que da función a los botones del busca minas
  *
  * @author Rubén Martín Andrade
+ * @version 0.9
  */
 public class FuncionesBotonesBuscaMinas {
 
     private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del busca minas
-    private int numBombas, numBombasFijas, numBanderas; // Número de bombas fijas, bombas cambiantes y de banderas en la partida
+    private int numBombasFijas, numBanderas, numCasillasSinBomba, numCasillasDespejadas; // Número de bombas fijas, bombas cambiantes y de banderas en la partida
     private static int[][] casillasOcultas;// Casillas ocultas del busca minas
     private static boolean primeraPulsacion = true; // Variable que indica si es la primera vez que se pulsa un botón en la partida
 
     /**
      * Método que crea todas las casillas ocultas únicamente la primera vez que se pulsa algún botón
      */
-    public void funcionPrimeraPulsacion() {
+    public void funcionPrimeraPulsacion(int fila, int columna) {
 
         // En caso de que sea la primera pulsación
         if (primeraPulsacion) {
@@ -31,10 +32,13 @@ public class FuncionesBotonesBuscaMinas {
             CasillasOcultasBuscaMinas casillasOcultasGestor = new CasillasOcultasBuscaMinas(); // Gestor con los métodos de creación de las casillas ocultas
 
             // Creamos las casillas ocultas
-            casillasOcultasGestor.crearCasillasReales();
+            casillasOcultasGestor.crearCasillasReales(fila, columna);
 
             // Sacamosel número de bombas
             numBombasFijas = casillasOcultasGestor.getBombas();
+
+            // Sacamos el número de casillas que no contienen bombas
+            numCasillasSinBomba = NUM_CASILLAS * NUM_CASILLAS - numBombasFijas;
 
             // Actualizamos las variable importantes
             valoresPredeterminados();
@@ -68,11 +72,14 @@ public class FuncionesBotonesBuscaMinas {
             case 0:
                 funcionCasillaVacia(gridBotones, fila, columna);
                 break;
-
             // En el resto de casos
             default:
+                // En caso de ser un número indicador simplemente aumentamos las casillas despejadas
+                numCasillasDespejadas++;
                 break;
         }
+        // Comprobamos si el jugador ha ganado la partida
+        funcionComprobarEstado(buscaMinas);
     }
 
     /**
@@ -83,7 +90,7 @@ public class FuncionesBotonesBuscaMinas {
         // LLamamos al método que revela todas las bombas existentes
         revelarBombas(gridBotones);
 
-        // Esperamos 1 segundo (1000 ms) y luego ejecutamos el código
+        // Esperamos 0.2 segundos (200 ms) y luego ejecutamos el código
         Timer timer = new Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -173,17 +180,36 @@ public class FuncionesBotonesBuscaMinas {
                 int indice = nuevaFila * NUM_CASILLAS + (nuevaColumna);
 
                 // En caso de que la casilla oculta sea cero y que la posición sea un botón
-                if (casillasOcultas[nuevaFila][nuevaColumna] == 0 && gridBotones.getComponent(indice) instanceof JButton) {
+                if (casillasOcultas[nuevaFila][nuevaColumna] != 9 && gridBotones.getComponent(indice) instanceof JButton) {
+
+                    // Aumentamos el número de casillas despejadas
+                    numCasillasDespejadas++;
+
                     // Actualizamos la posición para mostrarla
                     actualizarPosicion(nuevaFila, nuevaColumna, gridBotones);
-                    // Y volvemos a llamar a la función
-                    funcionCasillaVacia(gridBotones, nuevaFila, nuevaColumna);
-                } else {
-                    // En caso de no cumplirse la condición solo actualizamos la posicións
-                    actualizarPosicion(nuevaFila, nuevaColumna, gridBotones);
+
+                    // En caso de que la poisición este vacía
+                    if (casillasOcultas[nuevaFila][nuevaColumna] == 0) {
+                        // Volvemos a ejectuar la función
+                        funcionCasillaVacia(gridBotones, nuevaFila, nuevaColumna);
+                    }
+
+
                 }
             }
         }
+    }
+
+    /**
+     * Método que comprueba si el se ha ganado la partida o no
+     *
+     * @param buscaminas Ventana actual del buscaminasd
+     */
+    private void funcionComprobarEstado(JFrame buscaminas) {
+
+        // En caso de que todas las casillas que no sean bombas ya hayan sido liberadas ejectuamos la pantalla de victoria
+        if (numCasillasDespejadas == numCasillasSinBomba) ventanaFinalPartida(buscaminas, false);
+
     }
 
     /**
@@ -249,8 +275,6 @@ public class FuncionesBotonesBuscaMinas {
                                 // Cambiamos el texto del botón
                                 boton.setText("");
 
-                                // En caso de que la casilla sea una bomba restamos una bomba
-                                if (casillasOcultas[fila][columna] == 9) numBombas--;
                             }
                         } else {
                             // Si el número de banderas es menor que la cantidad total de bombas
@@ -260,14 +284,9 @@ public class FuncionesBotonesBuscaMinas {
 
                                 // Cambiamos el texto del botón
                                 boton.setText("🏁");
-
-                                // En caso de que la casilla sea una bomba aumentamos la cantidad de bombas
-                                if (casillasOcultas[fila][columna] == 9) numBombas++;
                             }
                         }
                     }
-                    // En caso de que el número de bombas sea igual al número original de bombas
-                    if (numBombas == numBombasFijas) ventanaFinalPartida(buscaMinas, false);
                 }
             }
         });
@@ -277,7 +296,7 @@ public class FuncionesBotonesBuscaMinas {
      * Método que cambia el estado variables importantes
      */
     private void valoresPredeterminados() {
-        numBombas = 0;
+        numCasillasDespejadas = 1;
         numBanderas = 0;
         primeraPulsacion = !primeraPulsacion;
     }
