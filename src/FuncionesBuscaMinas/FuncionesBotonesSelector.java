@@ -19,10 +19,10 @@ public class FuncionesBotonesSelector {
         // En función del nivel seleccionado se indica un número de casillas en la partida
         switch (nivel) {
             case 0:
-                NumeroCasillasBuscaMinas.setNumCasillas(4);
+                NumeroCasillasBuscaMinas.setNumCasillas(9);
                 break;
             case 1:
-                NumeroCasillasBuscaMinas.setNumCasillas(10);
+                NumeroCasillasBuscaMinas.setNumCasillas(12);
                 break;
             case 2:
                 NumeroCasillasBuscaMinas.setNumCasillas(15);

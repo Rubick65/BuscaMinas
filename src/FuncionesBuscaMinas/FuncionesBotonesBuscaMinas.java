@@ -70,6 +70,8 @@ public class FuncionesBotonesBuscaMinas {
                 break;
             // En caso de que la posción sea un cero
             case 0:
+                // En caso de ser un número indicador simplemente aumentamos las casillas despejadas
+                numCasillasDespejadas++;
                 funcionCasillaVacia(gridBotones, fila, columna);
                 break;
             // En el resto de casos
@@ -78,8 +80,9 @@ public class FuncionesBotonesBuscaMinas {
                 numCasillasDespejadas++;
                 break;
         }
-        // Comprobamos si el jugador ha ganado la partida
-        funcionComprobarEstado(buscaMinas);
+
+        // En caso de que todas las casillas que no sean bombas ya hayan sido liberadas ejectuamos la pantalla de victoria
+        if (numCasillasDespejadas == numCasillasSinBomba) ventanaFinalPartida(buscaMinas, false);
     }
 
     /**
@@ -185,6 +188,8 @@ public class FuncionesBotonesBuscaMinas {
                     // Aumentamos el número de casillas despejadas
                     numCasillasDespejadas++;
 
+                    System.out.println(numCasillasDespejadas);
+
                     // Actualizamos la posición para mostrarla
                     actualizarPosicion(nuevaFila, nuevaColumna, gridBotones);
 
@@ -193,7 +198,6 @@ public class FuncionesBotonesBuscaMinas {
                         // Volvemos a ejectuar la función
                         funcionCasillaVacia(gridBotones, nuevaFila, nuevaColumna);
                     }
-
 
                 }
             }
@@ -207,8 +211,6 @@ public class FuncionesBotonesBuscaMinas {
      */
     private void funcionComprobarEstado(JFrame buscaminas) {
 
-        // En caso de que todas las casillas que no sean bombas ya hayan sido liberadas ejectuamos la pantalla de victoria
-        if (numCasillasDespejadas == numCasillasSinBomba) ventanaFinalPartida(buscaminas, false);
 
     }
 
@@ -296,7 +298,7 @@ public class FuncionesBotonesBuscaMinas {
      * Método que cambia el estado variables importantes
      */
     private void valoresPredeterminados() {
-        numCasillasDespejadas = 1;
+        numCasillasDespejadas = 0;
         numBanderas = 0;
         primeraPulsacion = !primeraPulsacion;
     }

@@ -1,5 +1,8 @@
 package FuncionesBuscaMinas;
 
+/**
+ * Eliminar clase juntarla todas en las funciones de los botones del selector eliminar el Setter también
+ */
 public class NumeroCasillasBuscaMinas {
     // Atributo que indica la cantidad de casillas por fila y columna del busca minas
     private static int numCasillas;
