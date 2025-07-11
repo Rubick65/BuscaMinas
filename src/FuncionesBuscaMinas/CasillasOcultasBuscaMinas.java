@@ -8,7 +8,7 @@ public class CasillasOcultasBuscaMinas {
     private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas();// Cantidad de casillas ocultas del busa minas
     private int[][] casillasOcultas = new int[NUM_CASILLAS][NUM_CASILLAS]; // Matriz con la cantidad de casillas ocultas
 
-    // Matriz con todas las posibles posiciones al rededor de una
+    // Matriz con todas las posibles posiciones alrededor de cualquier casilla
     private static final int[][] POSICIONES = {
             {-1, -1}, {-1, 0}, {-1, 1},
             {0, -1}, {0, 1},
@@ -47,10 +47,8 @@ public class CasillasOcultasBuscaMinas {
         // LLamamos al método que añade las bombas a las casillas
         anyadirBombas();
 
-
         // Añadimos los números que indican las bombas cercanas
         anyadirNumeros();
-
 
     }
 

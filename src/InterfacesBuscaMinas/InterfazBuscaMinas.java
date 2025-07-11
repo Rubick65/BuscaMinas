@@ -61,8 +61,8 @@ public class InterfazBuscaMinas {
      * Método que crea la ventana principal del busca minas y sus características
      */
     private void crearVentanaBuscaMinas() {
-        buscaMinas = new JFrame("Busca Minas");
-        buscaMinas.setSize(new Dimension(600, 600));
+        buscaMinas = new JFrame("BuscaMinas");
+        buscaMinas.setSize(new Dimension(700, 700));
         buscaMinas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         buscaMinas.setResizable(false);
         buscaMinas.setLocationRelativeTo(null);

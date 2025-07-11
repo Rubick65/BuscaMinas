@@ -1,6 +1,7 @@
 package FuncionesBuscaMinas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,9 +17,9 @@ import InterfacesBuscaMinas.InterfazBuscaMinas;
  */
 public class FuncionesBotonesBuscaMinas {
 
-    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del busca minas
-    private int numBombasFijas, numBanderas, numCasillasSinBomba, numCasillasDespejadas; // Número de bombas fijas, bombas cambiantes y de banderas en la partida
-    private static int[][] casillasOcultas;// Casillas ocultas del busca minas
+    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del buscaMinas
+    private int numBombasFijas, numBanderas, numCasillasSinBomba, numCasillasDespejadas; // Número de bombas fijas, nújmero de banderas, número de casillas sin bomba y cantidad de casillas actuales ya despejadas
+    private static int[][] casillasOcultas;// Casillas ocultas del buscaMinas
     private static boolean primeraPulsacion = true; // Variable que indica si es la primera vez que se pulsa un botón en la partida
 
     /**
@@ -34,7 +35,7 @@ public class FuncionesBotonesBuscaMinas {
             // Creamos las casillas ocultas
             casillasOcultasGestor.crearCasillasReales(fila, columna);
 
-            // Sacamosel número de bombas
+            // Sacamos el número de bombas
             numBombasFijas = casillasOcultasGestor.getBombas();
 
             // Sacamos el número de casillas que no contienen bombas
@@ -49,7 +50,7 @@ public class FuncionesBotonesBuscaMinas {
     }
 
     /**
-     * Método que da la función que ocurrirá cuando los botones son pulsados por segunda vez
+     * Método que se ejecutará cuando los botones sean pulsados sin importar la el momento en el que se haga
      */
     public void funcionSegundaPulsacion(JPanel gridBotones, JFrame buscaMinas, int fila, int columna) {
 
@@ -97,7 +98,6 @@ public class FuncionesBotonesBuscaMinas {
         Timer timer = new Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 // Función que hace aparecer la ventana del final de la partida
                 ventanaFinalPartida(buscaMinas, true);
             }
@@ -136,7 +136,7 @@ public class FuncionesBotonesBuscaMinas {
     private void ventanaFinalPartida(JFrame buscaMinas, boolean perder) {
 
         // Variable que guardará el valor de la respuesta del usuario
-        int respuesta = 0;
+        int respuesta;
 
         // En caso de que la partida sea perdida
         if (perder) {
@@ -147,22 +147,35 @@ public class FuncionesBotonesBuscaMinas {
             respuesta = JOptionPane.showConfirmDialog(null, "¡Has Ganado!, ¿Quieres volver a jugar?", "Volver a jugar", JOptionPane.YES_NO_OPTION);
         }
 
-        // En caso de que si reinicie
-        if (respuesta == JOptionPane.YES_OPTION) {
-            // Cerramos la ventana actual
-            buscaMinas.dispose();
+        // Dependiendo de la respuesta del usuario
+        switch (respuesta) {
+            case 0:
+                // Cerramos la ventana actual
+                buscaMinas.dispose();
 
-            // Actualizamos las variable importantes
-            valoresPredeterminados();
+                // Actualizamos las variable importantes
+                valoresPredeterminados();
 
-            // Abrimos una nueva instancia del buscaminas
-            new InterfazBuscaMinas();
-        } else {
-            // En caso contrario simplemente cerramos la ventana
-            buscaMinas.dispose();
+                // Abrimos una nueva instancia del buscaminas
+                new InterfazBuscaMinas();
+                break;
+
+            case 1:
+                // En caso contrario simplemente cerramos la ventana
+                buscaMinas.dispose();
+                break;
+
         }
+
     }
 
+    /**
+     * Método recursivo que se encarga de liberar las casillas en caso de que la pulsada este vacía
+     *
+     * @param gridBotones Panel con la matriz de botones
+     * @param fila        Fila actual
+     * @param columna     Columna actual
+     */
     private void funcionCasillaVacia(JPanel gridBotones, int fila, int columna) {
 
         int nuevaFila, nuevaColumna;
@@ -188,8 +201,6 @@ public class FuncionesBotonesBuscaMinas {
                     // Aumentamos el número de casillas despejadas
                     numCasillasDespejadas++;
 
-                    System.out.println(numCasillasDespejadas);
-
                     // Actualizamos la posición para mostrarla
                     actualizarPosicion(nuevaFila, nuevaColumna, gridBotones);
 
@@ -202,16 +213,6 @@ public class FuncionesBotonesBuscaMinas {
                 }
             }
         }
-    }
-
-    /**
-     * Método que comprueba si el se ha ganado la partida o no
-     *
-     * @param buscaminas Ventana actual del buscaminasd
-     */
-    private void funcionComprobarEstado(JFrame buscaminas) {
-
-
     }
 
     /**
@@ -284,8 +285,21 @@ public class FuncionesBotonesBuscaMinas {
                                 // Aumentamos una bandera
                                 numBanderas++;
 
+                                // Sacamos la altura del botón
+                                int alturaBoton = boton.getHeight();
+
+                                // Indicamos el tamaño de la fuente que queremos
+                                int tamanyoFuente = Math.max(10, alturaBoton / 5);
+
+                                // Sacamos la fuente original del botón
+                                Font fuenteOriginalBoton = boton.getFont();
+
                                 // Cambiamos el texto del botón
+                                boton.setFont(new Font(fuenteOriginalBoton.getName(), fuenteOriginalBoton.getStyle(), tamanyoFuente));
+
+                                // Ponemos la bandera en el botón
                                 boton.setText("🏁");
+
                             }
                         }
                     }

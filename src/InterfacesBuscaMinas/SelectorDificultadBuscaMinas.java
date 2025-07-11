@@ -51,7 +51,7 @@ public class SelectorDificultadBuscaMinas {
      * Método que crea la ventana del selector de dificultad
      */
     private void crearVentanaSelector() {
-        ventanaSelectorDificultad = new JFrame("Busca Minas");
+        ventanaSelectorDificultad = new JFrame("BuscaMinas");
         ventanaSelectorDificultad.setSize(new Dimension(400, 400));
         ventanaSelectorDificultad.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventanaSelectorDificultad.setResizable(false);
