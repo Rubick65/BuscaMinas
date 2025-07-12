@@ -106,7 +106,7 @@ public class CasillasOcultasBuscaMinas {
         boolean posicionNoValida;
 
         // Calculamos el número de bombas máximas en función de la cantidad de casillas
-        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 17) / 100;
+        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 16) / 100;
 
         // Situamos el contador a cero
         bombas = 0;

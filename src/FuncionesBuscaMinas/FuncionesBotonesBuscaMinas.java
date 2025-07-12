@@ -13,7 +13,7 @@ import InterfacesBuscaMinas.InterfazBuscaMinas;
  * Clase que da función a los botones del busca minas
  *
  * @author Rubén Martín Andrade
- * @version 0.9
+ * @version 1.0
  */
 public class FuncionesBotonesBuscaMinas {
 
@@ -158,7 +158,6 @@ public class FuncionesBotonesBuscaMinas {
                 break;
 
         }
-
     }
 
     /**
@@ -185,7 +184,7 @@ public class FuncionesBotonesBuscaMinas {
             // En caso de que la posición no supere los límites
             if (nuevaFila >= 0 && nuevaFila < NUM_CASILLAS && nuevaColumna >= 0 && nuevaColumna < NUM_CASILLAS) {
                 // Sacamos el indice acutal
-                int indice = nuevaFila * NUM_CASILLAS + (nuevaColumna);
+                int indice = calcularIndice(nuevaFila, nuevaColumna);
 
                 // En caso de que la casilla oculta sea cero y que la posición sea un botón
                 if (casillasOcultas[nuevaFila][nuevaColumna] != 9 && gridBotones.getComponent(indice) instanceof JButton) {
@@ -217,7 +216,7 @@ public class FuncionesBotonesBuscaMinas {
     private static void actualizarPosicion(int fila, int columna, JPanel gridBotones) {
 
         // Calculamos el indice de la posición actual
-        int indice = fila * NUM_CASILLAS + (columna);
+        int indice = calcularIndice(fila, columna);
 
         // Sacamos el texto de la nueva posición
         JLabel nuevaPosicion = new JLabel(String.valueOf(casillasOcultas[fila][columna]), SwingConstants.CENTER);
@@ -307,5 +306,16 @@ public class FuncionesBotonesBuscaMinas {
         numCasillasDespejadas = 0;
         numBanderas = 0;
         primeraPulsacion = !primeraPulsacion;
+    }
+
+    /**
+     * Método que calcula el indice en función de la posición pasada cómo argumento
+     *
+     * @param fila    Fila actual
+     * @param columna Columna actual
+     * @return Devuelve el indice
+     */
+    private static int calcularIndice(int fila, int columna) {
+        return fila * NUM_CASILLAS + (columna);
     }
 }
