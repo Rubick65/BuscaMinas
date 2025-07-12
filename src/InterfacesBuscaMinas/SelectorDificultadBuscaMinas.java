@@ -72,15 +72,16 @@ public class SelectorDificultadBuscaMinas {
      */
     private void crearPanelBotonesSelector() {
         //Creamos la lista de botones con las distintas dificultades
-        JButton[] botonesDificultades = new JButton[3];
+        JButton[] botonesDificultades = new JButton[dificultades.length];
 
         // Creamos el panel que contendrá los botones
         panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(70, 0, 0, 0));
 
         //Iteramos sobre la lista de botones
-        for (int i = 0; i < botonesDificultades.length; i++) {
+        for (int i = 0; i < dificultades.length; i++) {
             final int nivel = i;
+            // Creamos los botones y los añadimos a la lista
             botonesDificultades[i] = new JButton(dificultades[i]);
             botonesDificultades[i].setFont(new Font("Arial", Font.ITALIC, 17));
             botonesDificultades[i].setPreferredSize(new Dimension(150, 75));

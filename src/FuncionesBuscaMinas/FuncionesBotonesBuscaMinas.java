@@ -17,8 +17,8 @@ import InterfacesBuscaMinas.InterfazBuscaMinas;
  */
 public class FuncionesBotonesBuscaMinas {
 
-    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del buscaMinas
-    private int numBombasFijas, numBanderas, numCasillasSinBomba, numCasillasDespejadas; // Número de bombas fijas, nújmero de banderas, número de casillas sin bomba y cantidad de casillas actuales ya despejadas
+    private static final int NUM_CASILLAS = FuncionesBotonesSelector.getNumCasillas(); // Número de casillas del buscaMinas
+    private int numBombasFijas, numBanderas, numCasillasSinBomba, numCasillasDespejadas; // Número de bombas fijas, número de banderas, número de casillas sin bomba y cantidad de casillas actuales ya despejadas
     private static int[][] casillasOcultas;// Casillas ocultas del buscaMinas
     private static boolean primeraPulsacion = true; // Variable que indica si es la primera vez que se pulsa un botón en la partida
 
@@ -26,14 +26,10 @@ public class FuncionesBotonesBuscaMinas {
      * Método que crea todas las casillas ocultas únicamente la primera vez que se pulsa algún botón
      */
     public void funcionPrimeraPulsacion(int fila, int columna) {
-
         // En caso de que sea la primera pulsación
         if (primeraPulsacion) {
             // Creamos una nueva instancia de casillas oculta
-            CasillasOcultasBuscaMinas casillasOcultasGestor = new CasillasOcultasBuscaMinas(); // Gestor con los métodos de creación de las casillas ocultas
-
-            // Creamos las casillas ocultas
-            casillasOcultasGestor.crearCasillasReales(fila, columna);
+            CasillasOcultasBuscaMinas casillasOcultasGestor = new CasillasOcultasBuscaMinas(fila, columna); // Gestor con los métodos de creación de las casillas ocultas
 
             // Sacamos el número de bombas
             numBombasFijas = casillasOcultasGestor.getBombas();
@@ -41,10 +37,10 @@ public class FuncionesBotonesBuscaMinas {
             // Sacamos el número de casillas que no contienen bombas
             numCasillasSinBomba = NUM_CASILLAS * NUM_CASILLAS - numBombasFijas;
 
-            // Actualizamos las variable importantes
+            // Actualizamos las variable inciales
             valoresPredeterminados();
 
-            // Creamos las casillas ocultas y las guardamos
+            // Guardamos las casillas ocultas
             casillasOcultas = casillasOcultasGestor.getCasillasOcultas();
         }
     }
@@ -53,7 +49,6 @@ public class FuncionesBotonesBuscaMinas {
      * Método que se ejecutará cuando los botones sean pulsados sin importar la el momento en el que se haga
      */
     public void funcionSegundaPulsacion(JPanel gridBotones, JFrame buscaMinas, int fila, int columna) {
-
         // Sacamos el botón actual
         JButton boton = (JButton) gridBotones.getComponent(fila * NUM_CASILLAS + (columna));
 
@@ -90,7 +85,6 @@ public class FuncionesBotonesBuscaMinas {
      * Método que da función a lo que ocurrirá cuando el jugador pulse encima de una bomba(Perder)
      */
     private void funcionBomba(JFrame buscaMinas, JPanel gridBotones) {
-
         // LLamamos al método que revela todas las bombas existentes
         revelarBombas(gridBotones);
 
@@ -114,7 +108,6 @@ public class FuncionesBotonesBuscaMinas {
      * @param gridBotones Panel principal donde se situan todos los elementos del buscaminas
      */
     private void revelarBombas(JPanel gridBotones) {
-
         // Iteramos sobre las casillas ocultas
         for (int fila = 0; fila < casillasOcultas.length; fila++) {// Filas
             for (int columna = 0; columna < NUM_CASILLAS; columna++) { // Columnas
@@ -134,7 +127,6 @@ public class FuncionesBotonesBuscaMinas {
      * @param perder     Booleano que indica si el la partida ha sido perdida o no
      */
     private void ventanaFinalPartida(JFrame buscaMinas, boolean perder) {
-
         // Variable que guardará el valor de la respuesta del usuario
         int respuesta;
 

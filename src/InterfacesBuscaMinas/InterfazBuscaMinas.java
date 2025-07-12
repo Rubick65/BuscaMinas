@@ -1,26 +1,25 @@
 package InterfacesBuscaMinas;
 
 import FuncionesBuscaMinas.FuncionesBotonesBuscaMinas;
-import FuncionesBuscaMinas.NumeroCasillasBuscaMinas;
+import FuncionesBuscaMinas.FuncionesBotonesSelector;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class InterfazBuscaMinas {
 
-    private static final int NUM_CASILLAS = NumeroCasillasBuscaMinas.getNumCasillas(); // Número de casillas del busca minas;
-    private JFrame buscaMinas; // Ventana del busca minas
-    private JButton[][] botones = new JButton[NUM_CASILLAS][NUM_CASILLAS];// Matriz de botones del busca minas
+    private static final int NUM_CASILLAS = FuncionesBotonesSelector.getNumCasillas(); // Número de casillas del buscaMinas;
+    private JFrame buscaMinas; // Ventana del buscaMinas
+    private JButton[][] botones = new JButton[NUM_CASILLAS][NUM_CASILLAS];// Matriz de botones del buscaMinas
     private static FuncionesBotonesBuscaMinas gestor = new FuncionesBotonesBuscaMinas();
-    private JPanel gridBotones; // Panel principal del busca minas
+    private JPanel gridBotones; // Panel principal del buscaMinas
 
     /**
-     * Constructor que inizializa el busca minas
+     * Constructor que inizializa el buscaMinas
      */
     public InterfazBuscaMinas() {
         inizializar();
     }
-
 
     /**
      * Método que devuelve el valor del grid de botones
@@ -41,7 +40,7 @@ public class InterfazBuscaMinas {
     }
 
     /**
-     * Método que crea todos los componentes del busca minas
+     * Método que crea todos los componentes del buscaMinas
      */
     private void inizializar() {
         // Llamamos a la función que crea la ventana principal
@@ -58,7 +57,7 @@ public class InterfazBuscaMinas {
     }
 
     /**
-     * Método que crea la ventana principal del busca minas y sus características
+     * Método que crea la ventana principal del buscaMinas y sus características
      */
     private void crearVentanaBuscaMinas() {
         buscaMinas = new JFrame("BuscaMinas");
@@ -69,19 +68,23 @@ public class InterfazBuscaMinas {
     }
 
     /**
-     * Método que crea el panel con los botones del buscaminas
+     * Método que crea el panel con los botones del buscaMinas
      */
     private void panelBotones() {
+        // Creamos el grid de los botones
         gridBotones = new JPanel(new GridLayout(NUM_CASILLAS, NUM_CASILLAS));
+
+        //Recorremos la matirz de botones
         for (int i = 0; i < botones.length; i++) {
             for (int j = 0; j < NUM_CASILLAS; j++) {
+                // Sacamos la posición de cada botón
                 final int fila = i;
                 final int columna = j;
 
                 // Creamos y añadimos los botones
                 botones[i][j] = new JButton();
 
-                // Añadimos las fucniones a los botones
+                // Añadimos las funciones a los botones
                 botones[i][j].addActionListener(e -> gestor.funcionSegundaPulsacion(gridBotones, buscaMinas, fila, columna));
                 gestor.funcionBotonesClickDerecho(buscaMinas, botones[i][j], fila, columna);
                 botones[i][j].addActionListener(e -> gestor.funcionPrimeraPulsacion(fila, columna));

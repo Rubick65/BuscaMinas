@@ -6,7 +6,18 @@ import javax.swing.*;
 
 public class FuncionesBotonesSelector {
 
-    private static NumeroCasillasBuscaMinas numeroCasillas;
+    // Atributo que indica la cantidad de casillas por fila y columna del busca minas
+    private static int numCasillas;
+
+    // Getter del número de casillas
+    public static int getNumCasillas() {
+        return numCasillas;
+    }
+
+    // Setter del número de casillas
+    private void setNumCasillas(int numCasillas) {
+        this.numCasillas = numCasillas;
+    }
 
     /**
      * Método que cambia la dificultad en función del nivel seleccionado por el usuario
@@ -19,13 +30,13 @@ public class FuncionesBotonesSelector {
         // En función del nivel seleccionado se indica un número de casillas en la partida
         switch (nivel) {
             case 0:
-                NumeroCasillasBuscaMinas.setNumCasillas(9);
+                setNumCasillas(9);
                 break;
             case 1:
-                NumeroCasillasBuscaMinas.setNumCasillas(12);
+                setNumCasillas(12);
                 break;
             case 2:
-                NumeroCasillasBuscaMinas.setNumCasillas(15);
+                setNumCasillas(15);
                 break;
             default:
                 break;
