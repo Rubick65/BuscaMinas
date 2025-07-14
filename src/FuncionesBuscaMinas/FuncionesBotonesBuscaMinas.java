@@ -19,6 +19,7 @@ public class FuncionesBotonesBuscaMinas {
 
     private static final int NUM_CASILLAS = FuncionesBotonesSelector.getNumCasillas(); // Número de casillas del buscaMinas
     private int numBombasFijas, numBanderas, numCasillasSinBomba, numCasillasDespejadas; // Número de bombas fijas, número de banderas, número de casillas sin bomba y cantidad de casillas actuales ya despejadas
+    private static Color[] coloresNumeros = {new Color(34, 139, 34), new Color(70, 130, 180), new Color(184, 134, 11), new Color(139, 69, 19), new Color(178, 34, 34), new Color(75, 0, 130), new Color(25, 25, 112), new Color(30, 30, 30)}; // Lista de colores para los números del buscaminas
     private static int[][] casillasOcultas;// Casillas ocultas del buscaMinas
     private static boolean primeraPulsacion = true; // Variable que indica si es la primera vez que se pulsa un botón en la partida
 
@@ -221,6 +222,7 @@ public class FuncionesBotonesBuscaMinas {
         // Sacamos el texto de la nueva posición
         JLabel nuevaPosicion = new JLabel(String.valueOf(casillasOcultas[fila][columna]), SwingConstants.CENTER);
 
+
         switch (casillasOcultas[fila][columna]) {
             case 9:
                 // Cambiamos la posción por un icono
@@ -231,6 +233,8 @@ public class FuncionesBotonesBuscaMinas {
                 nuevaPosicion.setText("");
                 break;
             default:
+                // En caso de ser cualquiero otro número cambiamos su color
+                nuevaPosicion.setForeground(coloresNumeros[casillasOcultas[fila][columna] - 1]);
                 break;
         }
 
