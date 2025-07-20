@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class CasillasOcultasBuscaMinas {
 
-    private static final int NUM_CASILLAS = FuncionesBotonesSelector.getNumCasillas();// Cantidad de casillas ocultas del busaMinas
-    private int[][] casillasOcultas = new int[NUM_CASILLAS][NUM_CASILLAS]; // Matriz con la cantidad de casillas ocultas
+    private int num_casillas;// Cantidad de casillas ocultas del busaMinas
+    private int[][] casillasOcultas; // Matriz con la cantidad de casillas ocultas
 
     // Matriz con todas las posibles posiciones alrededor de cualquier casilla
     private static final int[][] POSICIONES = {
@@ -25,6 +25,8 @@ public class CasillasOcultasBuscaMinas {
      * @param columna Columna actual del buscaminas
      */
     public CasillasOcultasBuscaMinas(int fila, int columna) {
+        num_casillas = FuncionesBotonesSelector.getNumCasillas();
+        casillasOcultas = new int[num_casillas][num_casillas];
         crearCasillasReales(fila, columna);
     }
 
@@ -106,7 +108,7 @@ public class CasillasOcultasBuscaMinas {
         boolean posicionNoValida;
 
         // Calculamos el número de bombas máximas en función de la cantidad de casillas
-        bombasMaximas = ((NUM_CASILLAS * NUM_CASILLAS) * 16) / 100;
+        bombasMaximas = ((num_casillas * num_casillas) * 20) / 100;
 
         // Situamos el contador a cero
         bombas = 0;
@@ -115,8 +117,8 @@ public class CasillasOcultasBuscaMinas {
         while (bombas < bombasMaximas) {
 
             // Creamos números random para indicar las posiciones en las que se situaran las bombas
-            posicionAleatoriaFila = (int) (Math.random() * (NUM_CASILLAS));
-            posicionAleatoriaColumna = (int) (Math.random() * (NUM_CASILLAS));
+            posicionAleatoriaFila = (int) (Math.random() * (num_casillas));
+            posicionAleatoriaColumna = (int) (Math.random() * (num_casillas));
 
             // Creamos un Array con las dos posciones aleatorias
             int[] posiconAleatoria = {posicionAleatoriaFila, posicionAleatoriaColumna};
@@ -156,7 +158,7 @@ public class CasillasOcultasBuscaMinas {
 
         // Iteramos sobre la matriz
         for (int i = 0; i < casillasOcultas.length; i++) {
-            for (int j = 0; j < NUM_CASILLAS; j++) {
+            for (int j = 0; j < num_casillas; j++) {
                 // En caso de que la posición actual no sea una bomba
                 if (casillasOcultas[i][j] != 9) {
                     casillasOcultas[i][j] = sumarNumeros(i, j);
@@ -184,7 +186,7 @@ public class CasillasOcultasBuscaMinas {
             nuevaColumna = columna + dir[1];
 
             // En caso de que la posición no supere los límites
-            if (nuevaFila >= 0 && nuevaFila < NUM_CASILLAS && nuevaColumna >= 0 && nuevaColumna < NUM_CASILLAS) {
+            if (nuevaFila >= 0 && nuevaFila < num_casillas && nuevaColumna >= 0 && nuevaColumna < num_casillas) {
 
                 // Y de que la casilla actual sea una bomba
                 if (casillasOcultas[nuevaFila][nuevaColumna] == 9) {

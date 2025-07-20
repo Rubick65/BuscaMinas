@@ -25,7 +25,7 @@ public class FuncionesBotonesSelector {
      * @param nivel              Nivel de dificultad
      * @param selectorDificultad Ventana del selector de dificultad
      */
-    public void seleccionarDificultad(int nivel, JFrame selectorDificultad) {
+    public void seleccionarDificultad(int nivel, JFrame ventana) {
 
         // En función del nivel seleccionado se indica un número de casillas en la partida
         switch (nivel) {
@@ -42,13 +42,14 @@ public class FuncionesBotonesSelector {
                 break;
         }
 
+        // Cerramos la ventana
+        ventana.dispose();
+
+        // Hacemos que la primera pulsación sea reiniciada
+        FuncionesBotonesBuscaMinas.setPrimeraPulsacion(true);
+
         // Ejecutamos el juego del busca minas
         new InterfazBuscaMinas();
-
-        // Cerramos la ventana
-        selectorDificultad.dispose();
-
     }
-
 
 }
