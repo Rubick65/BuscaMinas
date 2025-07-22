@@ -22,6 +22,11 @@ public class FuncionesBotonesBuscaMinas {
     private static int[][] casillasOcultas;// Casillas ocultas del buscaMinas
     private static boolean primeraPulsacion; // Variable que indica si es la primera vez que se pulsa un botón en la partida
 
+    /**
+     * Método set que cambia el estado del booleano primera pulsación
+     *
+     * @param primeraPulsacion Nuevo estado de la primera pulsación
+     */
     public static void setPrimeraPulsacion(boolean primeraPulsacion) {
         FuncionesBotonesBuscaMinas.primeraPulsacion = primeraPulsacion;
     }
@@ -32,8 +37,7 @@ public class FuncionesBotonesBuscaMinas {
     public void funcionPrimeraPulsacion(int fila, int columna) {
         // En caso de que sea la primera pulsación
         if (primeraPulsacion) {
-
-
+            // Sacamos el número de casillas
             num_casillas = FuncionesBotonesSelector.getNumCasillas();
 
             // Creamos una nueva instancia de casillas oculta

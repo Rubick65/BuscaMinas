@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class CasillasOcultasBuscaMinas {
 
-    private int num_casillas;// Cantidad de casillas ocultas del busaMinas
-    private int[][] casillasOcultas; // Matriz con la cantidad de casillas ocultas
+    private final int num_casillas;// Cantidad de casillas ocultas del buscaMinas
+    private final int[][] casillasOcultas; // Matriz con la cantidad de casillas ocultas
 
     // Matriz con todas las posibles posiciones alrededor de cualquier casilla
     private static final int[][] POSICIONES = {
@@ -15,14 +15,14 @@ public class CasillasOcultasBuscaMinas {
             {1, -1}, {1, 0}, {1, 1}
     };
 
-    private ArrayList<int[]> listaDePosiconesNoValidas = new ArrayList<>(); // Lista de posiciones que no son válidas para colocar bombas
+    private final ArrayList<int[]> listaDePosiconesNoValidas = new ArrayList<>(); // Lista de posiciones que no son válidas para colocar bombas
     private int bombas; // Contador que indica la cantidad de bombas que se irán añadiendo
 
     /**
      * Constructor que crea las casillas ocultas del buscaMinas
      *
-     * @param fila    Fila actual del buscaminas
-     * @param columna Columna actual del buscaminas
+     * @param fila    Fila actual del buscaMinas
+     * @param columna Columna actual del buscaMinas
      */
     public CasillasOcultasBuscaMinas(int fila, int columna) {
         num_casillas = FuncionesBotonesSelector.getNumCasillas();
@@ -101,10 +101,10 @@ public class CasillasOcultasBuscaMinas {
      */
     private void anyadirBombas() {
 
-        // VAriables que indican la cantidad máxima de bombas y las posiciones aleatorias donde se van a poner las bombas
+        // Variables que indican la cantidad máxima de bombas y las posiciones aleatorias donde se van a poner las bombas
         int bombasMaximas, posicionAleatoriaFila, posicionAleatoriaColumna;
 
-        // Booleano que indica si la posición creado aleatoriamente es válida o no
+        // Booleano que indica si la posición creáda aleatoriamente es válida o no
         boolean posicionNoValida;
 
         // Calculamos el número de bombas máximas en función de la cantidad de casillas
@@ -120,13 +120,13 @@ public class CasillasOcultasBuscaMinas {
             posicionAleatoriaFila = (int) (Math.random() * (num_casillas));
             posicionAleatoriaColumna = (int) (Math.random() * (num_casillas));
 
-            // Creamos un Array con las dos posciones aleatorias
+            // Creamos un Array con las dos posiciones aleatorias
             int[] posiconAleatoria = {posicionAleatoriaFila, posicionAleatoriaColumna};
 
             // Indicamos siempre que la posición será válida por defecto
             posicionNoValida = false;
 
-            // En caso de que la lista de arrays contenga la posición aleatorio simplemente saltamos esa posición
+            // En caso de que la lista de arrays contenga la posición aleatoria simplemente saltamos esa posición
             for (int[] posicionSinBomba : listaDePosiconesNoValidas) {
                 // Si cualquier posición al rededor de la posición inicial coincide con alguna casilla con bomba
                 if (Arrays.equals(posicionSinBomba, posiconAleatoria)) {
@@ -176,7 +176,7 @@ public class CasillasOcultasBuscaMinas {
      */
     private int sumarNumeros(int fila, int columna) {
 
-        // Variables para guardar las posiciones alrededor de la posción acutal y la cantidad de bombas en una posición
+        // Variables para guardar las posiciones alrededor de la posición actual y la cantidad de bombas en una posición
         int nuevaFila, nuevaColumna, bombasAlrededor = 0;
 
         // Iteramos sobre esas posiciones

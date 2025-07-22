@@ -16,8 +16,8 @@ public class SelectorDificultadBuscaMinas {
 
     private JFrame ventanaSelectorDificultad; // Ventana del selector
     private JLabel encabezado; // Texto de la cabecera de la ventana
-    private static FuncionesBotonesSelector funcionSelecciona = new FuncionesBotonesSelector(); // Gestor de la función de dificultad
-    private static String[] dificultades = {"Fácil", "Normal", "Difícil"}; // Texto de las distintas dificultades
+    private static final FuncionesBotonesSelector funcionSelecciona = new FuncionesBotonesSelector(); // Gestor de la función de dificultad
+    private static final String[] dificultades = {"Fácil", "Normal", "Difícil"}; // Texto de las distintas dificultades
     private JPanel panelBotones; // Panel que almacena los botones de las dificultades
 
     /**

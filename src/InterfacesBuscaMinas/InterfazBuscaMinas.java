@@ -8,12 +8,12 @@ import java.awt.*;
 
 public class InterfazBuscaMinas {
 
-    private int num_casillas; // Número de casillas del buscaMinas;
+    private final int num_casillas; // Número de casillas del buscaMinas;
     private JFrame buscaMinas; // Ventana del buscaMinas
-    private JButton[][] botones;// Matriz de botones del buscaMinas
+    private final JButton[][] botones;// Matriz de botones del buscaMinas
     private static final FuncionesBotonesBuscaMinas gestor = new FuncionesBotonesBuscaMinas(); // Gestor con las diferentes funciones del buscaMinas
     private static final FuncionesBotonesSelector gestorDificultades = new FuncionesBotonesSelector();
-    private String[] dificultades = SelectorDificultadBuscaMinas.getDificultades();
+    private final String[] dificultades = SelectorDificultadBuscaMinas.getDificultades();
     private JPanel gridBotones; // Panel principal del buscaMinas
     private JMenuBar menuBarra; // Barra del menú principal
 
@@ -21,8 +21,10 @@ public class InterfazBuscaMinas {
      * Constructor que inizializa el buscaMinas
      */
     public InterfazBuscaMinas() {
-
+        // Indicamos el número de casillas actuales
         this.num_casillas = FuncionesBotonesSelector.getNumCasillas();
+
+        // Creamos la matriz para los botones
         botones = new JButton[num_casillas][num_casillas];
         inizializar();
     }
@@ -34,6 +36,7 @@ public class InterfazBuscaMinas {
         // Llamamos a la función que crea la ventana principal
         crearVentanaBuscaMinas();
 
+        // Creamos el menú superior
         crearMenuBarra();
 
         // Creamos el panel con los botones
@@ -63,17 +66,24 @@ public class InterfazBuscaMinas {
      */
     private void crearMenuBarra() {
         menuBarra = new JMenuBar();
+        // Nombr del menú
         JMenu dificultad = new JMenu("Dificultad");
+        // Tamaño del menú
         JMenuItem[] menuDificultades = new JMenuItem[dificultades.length];
+
+        // Iteramos en función de la cantidad de dificultades
         for (int i = 0; i < dificultades.length; i++) {
             final int nivel = i;
+
+            // Creamos un nuevo item del menú con el nombre de la dificultad correspondiente
             menuDificultades[i] = new JMenuItem(dificultades[i]);
+            // Le añadimos la función de
             menuDificultades[i].addActionListener(e -> gestorDificultades.seleccionarDificultad(nivel, buscaMinas));
+            // Añadimos la dificultad al menú de dificultades
             dificultad.add(menuDificultades[i]);
         }
+        // Añadimos el menu de dificultades a la barra del menú
         menuBarra.add(dificultad);
-
-
     }
 
     /**
@@ -104,6 +114,5 @@ public class InterfazBuscaMinas {
             }
         }
     }
-
 }
 
