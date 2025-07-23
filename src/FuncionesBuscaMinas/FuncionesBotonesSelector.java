@@ -50,5 +50,4 @@ public class FuncionesBotonesSelector {
         // Ejecutamos el juego del buscaMinas
         new InterfazBuscaMinas();
     }
-
 }

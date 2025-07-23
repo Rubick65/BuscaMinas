@@ -1,4 +1,4 @@
-package MainsBuscaMinas;
+package MainBuscaMinas;
 
 import InterfacesBuscaMinas.SelectorDificultadBuscaMinas;
 

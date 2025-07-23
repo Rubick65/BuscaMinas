@@ -12,7 +12,7 @@ import InterfacesBuscaMinas.InterfazBuscaMinas;
  * Clase que da función a los botones del buscaMinas
  *
  * @author Rubén Martín Andrade
- * @version 1.0
+ * @version 2.0
  */
 public class FuncionesBotonesBuscaMinas {
 
